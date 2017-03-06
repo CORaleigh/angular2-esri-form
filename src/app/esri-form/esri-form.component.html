@@ -1,0 +1,28 @@
+<form class="example-form" name="esri-form">
+  <div *ngFor="let field of fields" >
+      <md-input-container class="example-full-width" *ngIf="ignoreFields.indexOf(field.name) === -1 && field.type === 'esriFieldTypeString' && field.length < 200 ">
+        <input mdInput required [placeholder]="field.alias" [(ngModel)]="data[field.name]" value="" [name]="field.name" [maxlength]="field.length">
+        <md-hint align="end">{{(data[field.name]) ? data[field.name].length : 0}} / {{field.length}}</md-hint>
+      </md-input-container>
+      <md-input-container class="example-full-width" *ngIf="ignoreFields.indexOf(field.name) === -1 && field.type === 'esriFieldTypeString' && field.length >= 200 ">
+        <textarea rows="5" mdInput [placeholder]="field.alias" [(ngModel)]="data[field.name]" value="" [name]="field.name" [maxlength]="field.length"></textarea>
+        <md-hint align="end">{{(data[field.name]) ? data[field.name].length : 0}} / {{field.length}}</md-hint>
+      </md-input-container>
+      <section class="example-section" *ngIf="ignoreFields.indexOf(field.name) === -1 && field?.domain && field.type === 'esriFieldTypeSmallInteger' && field.alias != 'Company'">
+        <label class="example-margin">{{field.alias}}</label>
+        <md-radio-group [(ngModel)]="data[field.name]" [name]="field.name">
+          <md-radio-button required *ngFor="let codedValue of field.domain.codedValues" class="example-margin" [value]="codedValue.code" >
+            {{codedValue.name}}
+          </md-radio-button>
+        </md-radio-group>
+      </section>
+      <section *ngIf="field.alias === 'Company'" class="example-section">
+        <md-select required [placeholder]="field.alias" [(ngModel)]="data[field.name]" [name]="field.name">
+          <md-option  *ngFor="let codedValue of field.domain.codedValues" [value]="codedValue.code">
+            {{codedValue.name}}
+          </md-option>
+        </md-select>
+      </section>
+  </div>
+</form>
+{{data | json}}
