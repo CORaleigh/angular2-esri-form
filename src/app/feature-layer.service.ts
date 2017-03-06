@@ -20,7 +20,7 @@ export class FeatureLayerService {
   addFeature(body: Object): Promise<any> {
     let headers = new Headers({ 'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.featureLayerUrl + '/addFeature', body, options)
+    return this.http.post(this.featureLayerUrl + '/addFeatures', body, options)
                .toPromise()
                .then(response => response.json())
                .catch(this.handleError);
