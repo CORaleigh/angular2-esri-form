@@ -12,11 +12,17 @@ export class EsriFormComponent implements OnInit {
   fields: EsriFields[];
   data: any;
   ignoreFields: [string];
+  result: any;
   constructor(private featureLayerService: FeatureLayerService, @Attribute("ignore-fields") ignoreFields) {
     this.ignoreFields = ignoreFields;
   }
   getFields(): void {
     this.featureLayerService.getFields().then(fields => this.fields = fields);
+  }
+
+  submitForm(): void {
+    this.featureLayerService.addFeature(this.data).then(result => this.result = result);
+    console.log(this.result);
   }
 
   ngOnInit() {
