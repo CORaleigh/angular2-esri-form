@@ -11,7 +11,8 @@ import { FeatureLayerService } from './feature-layer.service';
 @NgModule({
   declarations: [
     AppComponent,
-    EsriFormComponent
+    EsriFormComponent,
+    TestFormComponent
   ],
   imports: [
     BrowserModule,
