@@ -21,13 +21,13 @@ export class EsriFormComponent implements OnInit {
   }
 
   submitForm(): void {
-    this.featureLayerService.addFeature(this.data).then(result => this.result = result);
+    this.featureLayerService.addFeature([this.data]).then(result => this.result = result);
     console.log(this.result);
   }
 
   ngOnInit() {
     this.getFields();
-    this.data = {};
+    this.data = {f: 'json'};
   }
 
 }
