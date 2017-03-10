@@ -17,9 +17,11 @@ export class FeatureLayerService {
                .then(response => response.json().fields as EsriFields[])
                .catch(this.handleError);
   }
-  addFeature(body: Object): Promise<any> {
+  addFeature(feature: Object): Promise<any> {
     let headers = new Headers({ 'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
+    let body = JSON.stringify({f: 'json', features: [{geometry: null, attributes: feature}]});
+
     return this.http.post(this.featureLayerUrl + '/addFeatures', body, options)
                .toPromise()
                .then(response => response.json())
